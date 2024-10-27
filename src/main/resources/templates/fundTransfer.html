@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Fund Transfer</title>
+</head>
+<body>
+      <section class="container mt-5">
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+            <div class="card-header text-center">
+                <h1 class="h2">Fund Transfer</h1>
+            </div>
+            <div class="card-body">
+                <!-- Message section, visible only if there is a message -->
+                <div id="message" th:if="${message}" class="alert"
+                     th:classappend="${message.contains('successful') ? 'alert-success' : 'alert-danger'}"
+                     th:text="${message}"></div>
+
+                <form th:action="@{/transfer-funds}" method="post" class="needs-validation">
+                    <div class="mb-3">
+                        <label for="fromAccount" class="form-label">From Account</label>
+                        <select id="fromAccount" name="fromAccount" class="form-select" required>
+                            <option value="" disabled selected>Select an account</option>
+                            <option th:each="account : ${accounts}" 
+                                    th:value="${account.accountNumber}" 
+                                    th:text="${account.accountHolderName}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="toAccount" class="form-label">To Account</label>
+                        <select id="toAccount" name="toAccount" class="form-select" required>
+                            <option value="" disabled selected>Select an account</option>
+                            <option th:each="account : ${accounts}" 
+                                    th:value="${account.accountNumber}" 
+                                    th:text="${account.accountHolderName}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" id="amount" name="amount" class="form-control" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Transfer</button>
+                        <a href="/" class="btn btn-warning ms-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

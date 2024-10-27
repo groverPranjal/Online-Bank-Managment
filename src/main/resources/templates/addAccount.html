@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Account</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <section class="container mt-5">
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+            <div class="card-header text-center">
+                <h1 class="h2">Add New Account</h1>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/add-account}" method="post" class="needs-validation" >
+                    <div class="mb-3">
+                        <label for="accountHolderName" class="form-label">Account Holder Name</label>
+                        <input type="text" id="accountHolderName" name="accountHolderName" class="form-control" required>
+                        <div class="invalid-feedback">Please enter the account holder's name.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="accountNumber" class="form-label">Account Number</label>
+                        <input type="text" id="accountNumber" name="accountNumber" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid account number.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="accountType" class="form-label">Account Type</label>
+                        <select id="accountType" name="accountType" class="form-select" required>
+                            <option value="" disabled selected>Select account type</option>
+                            <option value="savings">Savings</option>
+                            <option value="current">Current</option>
+                            <option value="business">Business</option>
+                        </select>
+                        <div class="invalid-feedback">Please select an account type.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="balance" class="form-label">Initial Deposit</label>
+                        <input type="number" id="balance" name="balance" class="form-control" required>
+                        <div class="invalid-feedback">Please enter the initial deposit amount.</div>
+                    </div>
+                    <div class="container text-center" style="display:flex; justify-content: center;">
+                    <button type="submit" class="btn btn-primary ">Create Account</button>
+                    <a href="/" class="btn btn-warning  ms-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+   
+</body>
+</html>
