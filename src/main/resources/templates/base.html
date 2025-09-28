@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:fragment="layout(content)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+ 	th:fragment="layout(content)">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -31,15 +31,35 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ms-auto text-uppercase">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/}">Home</a></li>
-					<li class="nav-item"><a class="nav-link"
+				<ul class="navbar-nav me-auto text-uppercase" sec:authorize="isAuthenticated()">
+					<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link active"
+						aria-current="page" th:href="@{/admin/dashboard}">Admin Dashboard</a></li>
+					<li class="nav-item" sec:authorize="hasRole('USER')"><a class="nav-link active"
+						aria-current="page" th:href="@{/user/dashboard}">User Dashboard</a></li>
+					<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link"
 						th:href="@{/accounts}">Account Management</a></li>
+					<li class="nav-item" sec:authorize="hasRole('USER')"><a class="nav-link"
+						th:href="@{/my-accounts}">My Accounts</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/fund-transfer}">Fund Transfer</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/transaction-history}">Transaction History</a></li>
+					<li class="nav-item" sec:authorize="hasRole('USER')"><a class="nav-link"
+						th:href="@{/loan-request}">Loan Request</a></li>
+					<li class="nav-item" sec:authorize="hasRole('USER')"><a class="nav-link"
+						th:href="@{/loan-payment}">Loan Payment</a></li>
+					<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link"
+						th:href="@{/loan-approval}">Loan Approval</a></li>
+				</ul>
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item" sec:authorize="!isAuthenticated()">
+						<a class="nav-link" th:href="@{/login}">Login</a>
+					</li>
+					<li class="nav-item" sec:authorize="isAuthenticated()">
+						<form th:action="@{/logout}" method="post" class="d-inline">
+							<button type="submit" class="btn btn-link nav-link">Logout</button>
+						</form>
+					</li>
 				</ul>
 			</div>
 		</div>

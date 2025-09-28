@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard - Online Banking</title>
+</head>
+<body>
+    <section class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <img src="/logo.png" alt="Bank Logo" class="mb-4" style="width: 120px; height: auto;">
+                <h1 class="display-4 font-weight-bold text-white">Welcome to Online Banking</h1>
+                <p class="lead text-light">Manage your finances with ease and security</p>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Your Account Overview</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div th:if="${hasLoan}" class="alert alert-info">
+                                    <h5><i class="fas fa-hand-holding-usd"></i> Active Loan</h5>
+                                    <p class="mb-1"><strong>Monthly EMI:</strong> ₹<span th:text="${#numbers.formatDecimal(loanEmi, 1, 2)}"></span></p>
+                                    <p class="mb-0"><strong>Remaining Balance:</strong> ₹<span th:text="${#numbers.formatDecimal(remainingBalance, 1, 2)}"></span></p>
+                                </div>
+                                <div th:if="${!hasLoan}" class="alert alert-success">
+                                    <h5><i class="fas fa-check-circle"></i> No Active Loans</h5>
+                                    <p>You currently have no outstanding loans. Consider applying for a loan if needed.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h5>Quick Actions</h5>
+                                <div class="d-grid gap-2">
+                                    <a href="/my-accounts" class="btn btn-outline-primary">View My Accounts</a>
+                                    <a href="/fund-transfer" class="btn btn-outline-success">Transfer Funds</a>
+                                    <a href="/transaction-history" class="btn btn-outline-info">Transaction History</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-box">
+                    <i class="fas fa-exchange-alt fa-3x mb-3"></i>
+                    <h4>Fund Transfers</h4>
+                    <p>Quickly and securely transfer funds between accounts with our advanced banking technology.</p>
+                    <a href="/fund-transfer" class="btn btn-primary mt-2">Transfer Now</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-box">
+                    <i class="fas fa-history fa-3x mb-3"></i>
+                    <h4>Transaction History</h4>
+                    <p>Keep track of all your transactions with detailed history and easy search functionality.</p>
+                    <a href="/transaction-history" class="btn btn-primary mt-2">View History</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-box">
+                    <i class="fas fa-hand-holding-usd fa-3x mb-3"></i>
+                    <h4>Loan Services</h4>
+                    <p>Apply for loans, check your loan status, and manage payments all in one place.</p>
+                    <a href="/loan-request" class="btn btn-primary mt-2">Manage Loans</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
