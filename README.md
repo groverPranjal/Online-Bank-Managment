@@ -1,9 +1,5 @@
 # Online Banking Management System
 
-## Video Demonstration
-You can watch the video demonstration of the project [here](./working/Project2-working.mp4).
-
-https://github.com/user-attachments/assets/561bdd18-d843-4d24-8ac8-b67005858220
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -60,8 +56,7 @@ To design and implement a robust online banking system that offers secure accoun
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Atv23/Project2-CodeClauseJavaInternship.git
-   ```
+   git clone https://github.com/groverPranjal/Online-Bank-Managment
 
 2. Navigate to the project directory:
    ```bash
