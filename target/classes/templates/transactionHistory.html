@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Transaction History</title>
+</head>
+<body>
+	 <section class="container mt-5">
+	    <div class="container">
+	        <h1 class="mb-4">Transaction History</h1>
+	        <div id="message" th:if="${message}" class="alert"
+	                 th:classappend="${message.contains('successful') ? 'alert-success' : 'alert-danger'}"
+	                 th:text="${message}"></div>
+
+	        <div th:if="${userAccounts}" class="mb-4">
+	            <form method="get" action="/transaction-history" class="d-flex">
+	                <select name="accountNumber" class="form-select me-2" onchange="this.form.submit()">
+	                    <option value="">All Accounts</option>
+	                    <option th:each="account : ${userAccounts}"
+	                            th:value="${account.accountNumber}"
+	                            th:text="${account.accountNumber + ' (' + account.accountHolderName + ')'}"
+	                            th:selected="${selectedAccount == account.accountNumber}"></option>
+	                </select>
+	            </form>
+	        </div>
+            
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>From Account</th>
+                        <th>To Account</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th class="text-center">Actions</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="transaction : ${transactions}">
+                        <td th:text="${transaction.timestamp}"></td>
+                        <td th:text="${transaction.fromAccount}"></td>
+                        <td th:text="${transaction.toAccount.startsWith('LOAN_PAYMENT')} ? 'Loan Payment' : transaction.toAccount"></td>
+                        <td th:text="|&#8377; ${transaction.amount}|"></td>
+                        <td th:text="${transaction.status} ? 'Success' : 'Failure'"
+                            th:class="${transaction.status} ? 'text-success fw-bold' : 'text-danger fw-bold'"></td>
+                        <td>
+                            <div class="d-flex justify-content-center"> 
+                                <a th:href="@{/delete-transaction/{id}(id=${transaction.id})}" class="text-danger" title="Delete Transaction">
+                                    <i class="fas fa-trash-alt"></i> 
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a th:href="@{/fund-transfer}" class="btn btn-primary">Fund Transfer</a>
+        </div>
+    </section>
+</body>
+</html>

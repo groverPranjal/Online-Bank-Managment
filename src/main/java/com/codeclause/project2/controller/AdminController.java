@@ -7,10 +7,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeclause.project2.model.Account;
-import com.codeclause.project2.model.Loan;
+// import com.codeclause.project2.model.Loan;
 import com.codeclause.project2.repository.AccountRepository;
 import com.codeclause.project2.repository.LoanRepository;
 import com.codeclause.project2.repository.UserRepository;
@@ -45,5 +47,21 @@ public class AdminController {
         return "admin/dashboard";
     }
 
-    // Add other admin-specific methods here
+    @GetMapping("/deposit")
+    public String viewDeposit(Model model) {
+        List<Account> accounts = bankingService.getAllAccounts();
+        model.addAttribute("accounts", accounts);
+        return "deposit";
+    }
+
+    @PostMapping("/deposit")
+    public String deposit(@RequestParam String accountNumber, @RequestParam double amount, Model model) {
+        String message = bankingService.deposit(accountNumber, amount);
+        model.addAttribute("message", message);
+        List<Account> accounts = bankingService.getAllAccounts();
+        model.addAttribute("accounts", accounts);
+        return "deposit";
+    }
+
+
 }

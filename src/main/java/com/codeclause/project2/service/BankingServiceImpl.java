@@ -67,6 +67,28 @@ public class BankingServiceImpl implements BankingService{
 	@Override
 	public void deleteAccountById(Long id) {
 		this.accountRepository.deleteById(id);
-		
+
+	}
+
+	@Override
+	@Transactional
+	public String deposit(String accountNumber, double amount) {
+		List<Account> accs = accountRepository.findByAccountNumber(accountNumber);
+		String message = "Deposit successful!";
+		if (accs.size() == 1) {
+			Account account = accs.get(0);
+			account.setBalance(account.getBalance() + amount);
+			accountRepository.save(account);
+		} else {
+			message = "Invalid account number!";
+		}
+		Transaction transaction = new Transaction();
+		transaction.setFromAccount("Admin Deposit");
+		transaction.setToAccount(accountNumber);
+		transaction.setAmount(amount);
+		transaction.setTimestamp(LocalDateTime.now());
+		transaction.setStatus(message.equals("Deposit successful!"));
+		transactionRepository.save(transaction);
+		return message;
 	}
 }

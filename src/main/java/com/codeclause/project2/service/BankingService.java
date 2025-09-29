@@ -12,4 +12,6 @@ public interface BankingService {
 	public List<Account> getAllAccounts();
 
 	public void deleteAccountById(Long id);
+
+	public String deposit(String accountNumber, double amount);
 }

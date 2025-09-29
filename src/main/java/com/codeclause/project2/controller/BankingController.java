@@ -54,13 +54,13 @@ public class BankingController {
         List<Account> myAccounts = allAccounts.stream().filter(a -> a.getAccountHolderName().equals(username)).collect(Collectors.toList());
         model.addAttribute("accounts", myAccounts);
         model.addAttribute("title", "My Accounts");
-        return "account"; // Render accounts.html
+        return "account"; 
     }
     @GetMapping("/delete-account")
     @PreAuthorize("hasRole('ADMIN')")
     public String deleteAccount(@RequestParam Long id) {
-        bankingService.deleteAccountById(id); // Implement this in your BankingService
-        return "redirect:/accounts"; // Redirect to the accounts page after deletion
+        bankingService.deleteAccountById(id);
+        return "redirect:/accounts"; 
     }
 
     @GetMapping("/add-account")

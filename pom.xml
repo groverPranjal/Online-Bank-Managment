@@ -6,13 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> 
 	</parent>
 	<groupId>com.codeclause.project2</groupId>
 	<artifactId>OnlineBankingManagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>OnlineBankingManagement</name>
-	<description>project 2 fo</description>
+	<description>APC Project</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Request</title>
+</head>
+<body>
+    <section class="container mt-5">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-header text-center">
+                <h1 class="h2">Loan Request</h1>
+            </div>
+            <div class="card-body">
+                <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+                <form th:action="@{/loan-request}" method="post">
+                    <div class="mb-3">
+                        <label for="accountId" class="form-label">Select Account</label>
+                        <select id="accountId" name="accountId" class="form-select" required>
+                            <option value="" disabled selected>Select an account</option>
+                            <option th:each="account : ${accounts}"
+                                    th:value="${account.id}"
+                                    th:text="${account.accountNumber + ' (' + account.accountHolderName + ')'}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Loan Amount (₹)</label>
+                        <input type="number" id="amount" name="amount" class="form-control" required min="1000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" id="description" name="description" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Reason for Loan</label>
+                        <textarea id="reason" name="reason" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="durationMonths" class="form-label">Duration (Months)</label>
+                        <input type="number" id="durationMonths" name="durationMonths" class="form-control" required min="1">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit Loan Request</button>
+                        <a href="/home" class="btn btn-warning ms-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

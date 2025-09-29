@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: layout(~{::content})}">
+<head>
+    <title>Loan Approval</title>
+</head>
+<body>
+    <section th:fragment="content">
+        <div class="container mt-5">
+            <h2 class="mb-4">Loan Approval</h2>
+            <div th:if="${message}" class="alert alert-success">
+                <span th:text="${message}"></span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Applicant Name</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Account ID</th>
+                            <th>Rejection Reason</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="loan : ${loans}">
+                            <td th:text="${loan.id}"></td>
+                            <td th:text="${loan.applicantName}"></td>
+                            <td th:text="${loan.amount}"></td>
+                            <td th:text="${loan.status}"></td>
+                            <td th:text="${loan.accountId}"></td>
+                            <td th:text="${loan.rejectionReason}"></td>
+                            <td>
+                                <form th:if="${loan.status == 'pending'}" th:action="@{/approve-loan}" method="post" class="d-inline">
+                                    <input type="hidden" name="id" th:value="${loan.id}">
+                                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                </form>
+                                <button th:if="${loan.status == 'pending'}" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" th:data-bs-target="'#rejectModal' + ${loan.id}">Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Reject Modal for each loan -->
+            <div th:each="loan : ${loans}" th:if="${loan.status == 'pending'}" class="modal fade" th:id="'rejectModal' + ${loan.id}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Reject Loan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <form th:action="@{/reject-loan}" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" name="id" th:value="${loan.id}">
+                                <div class="mb-3">
+                                    <label for="rejectionReason" class="form-label">Rejection Reason</label>
+                                    <textarea class="form-control" id="rejectionReason" name="rejectionReason" rows="3" required></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Reject</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

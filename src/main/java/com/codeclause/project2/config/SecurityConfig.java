@@ -25,19 +25,19 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/login", "/register", "/css/**", "/js/**", "/logo.png").permitAll()
-                .anyRequest().authenticated() // allow logged-in users to access other pages
+                .anyRequest().authenticated() 
             )
             .authenticationProvider(authenticationProvider())
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/redirect") // ✅ after login redirect based on role
+                .defaultSuccessUrl("/redirect") 
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
             )
-            .csrf(csrf -> csrf.disable()); // keep disabled for now
+            .csrf(csrf -> csrf.disable());
 
         return http.build();
     }

@@ -1,0 +1,5 @@
+com\codeclause\project2\controller\LoginControllerTest.class
+com\codeclause\project2\repository\AccountRepositoryTest.class
+com\codeclause\project2\OnlineBankingManagementApplicationTests.class
+com\codeclause\project2\service\BankingServiceTest.class
+com\codeclause\project2\repository\UserRepositoryTest.class

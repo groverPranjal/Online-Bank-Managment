@@ -47,5 +47,4 @@ public class UserController {
         return "user/dashboard";
     }
 
-    // Add other user-specific methods here
 }
